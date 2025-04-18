@@ -1,23 +1,33 @@
 #!/bin/bash
-set -e  # Arrêter le script en cas d'erreur
 
-# Crée un environnement virtuel
-echo "[*] Création de l'environnement virtuel Python..."
-python3 -m venv firewall
+set -e
 
-# Active l'environnement virtuel
-source firewall/bin/activate
+echo "[*] Mise à jour des paquets..."
+sudo apt update && sudo apt upgrade -y
 
-# Met à jour pip
-echo "[*] Mise à jour de pip..."
+echo "[*] Installation des dépendances système pour le pare-feu Python..."
+sudo apt install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    python3-dev \
+    build-essential \
+    libnfnetlink-dev \
+    libnetfilter-queue-dev \
+    iptables \
+    tcpdump
+
+echo "Création d'un environnement virtuel Python (venv)..."
+python3 -m venv venv
+
+echo "Activation de l'environnement virtuel..."
+source venv/bin/activate
+
+echo "Mise à jour de pip..."
 pip install --upgrade pip
 
-# Installe les dépendances
-echo "[*] Installation des dépendances depuis requirements.txt..."
-pip install -r requirements.txt
+echo "Installation des dépendances Python..."
+pip install scapy netfilterqueue
 
-# Ajoute une règle iptables pour rediriger les paquets vers NFQUEUE
-echo "[*] Ajout de la règle iptables..."
+echo "Ajout de la règle iptables pour rediriger vers NFQUEUE..."
 sudo iptables -I INPUT -j NFQUEUE --queue-num 1
-
-echo "Configuration terminée. Vous pouvez maintenant exécuter firewall.py"
