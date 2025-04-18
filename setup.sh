@@ -31,3 +31,5 @@ pip install scapy netfilterqueue
 
 echo "Ajout de la règle iptables pour rediriger vers NFQUEUE..."
 sudo iptables -I INPUT -j NFQUEUE --queue-num 1
+
+echo "installation des dépendances reussi"
