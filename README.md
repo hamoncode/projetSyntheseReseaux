@@ -42,3 +42,46 @@ flowchart TD
     E -- Oui --> F[Rejeter + enregistrer dans les logs]
     E -- Non --> G[Accepter le paquet]
 
+```
+
+# Capstone Project – VPS Firewall
+
+## Objective
+
+Develop an efficient and extensible firewall designed to protect Virtual Private Servers (VPS), starting with a quick prototype in Python and evolving into a secure and high-performance version written in Rust.
+
+---
+
+## Target Environment
+
+The firewall is designed to run on a virtual machine (VM) or dedicated server using:
+- **Ubuntu Server**
+- **NixOS**  
+(depending on the specific deployment needs)
+
+---
+
+## Technologies Used
+
+| Component | Tool/Technology         | Purpose                                   |
+|-----------|-------------------------|-------------------------------------------|
+| 🐚 Bash    | `iptables`              | Packet redirection and filtering          |
+| 🐍 Python  | `scapy`, `netfilterqueue` | Prototyping and Deep Packet Inspection (DPI) |
+| 🦀 Rust    | `libnetfilter_queue`, `tokio` | Final implementation with enhanced speed and memory safety |
+
+---
+
+## System Description
+
+The firewall runs as a **background service (daemon)** on the server. It intercepts incoming packets using `iptables`, inspects them through a processing queue (`NFQUEUE`), and decides whether to **accept** or **drop** them based on custom rules.
+
+---
+
+## Flowchart of Operation
+
+```mermaid
+flowchart TD
+    A[Incoming Packet] --> B[iptables forwards to NFQUEUE]
+    B --> C[Python reads packet via NetfilterQueue]
+    C --> D[Inspection with Scapy
+```mermaid
