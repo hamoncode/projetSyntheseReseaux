@@ -11,6 +11,13 @@ echo "Démarrage du pare-feu..."
 python firewall.py &
 FW_PID=$!
 
+# lancer tcpdump pour surveiller le trafic réseau
+echo "Lancement de tcpdump pour surveiller le trafic réseau..."
+sudo tcpdump -i any -n -s 0 -w test.pcap &
+
+# Attendre que tcpdump démarre
+sleep 2
+
 # fix du racing condition
 sleep 2
 
