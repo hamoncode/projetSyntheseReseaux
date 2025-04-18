@@ -4,7 +4,7 @@
 
 Développer un pare-feu efficace et extensible, destiné à la protection des serveurs privés virtuels (VPS), en combinant un prototype rapide en Python avec une version finale sécurisée en Rust. 
 
-**N.B: ce projet est a titre educatif seulement. pour un firewall linux tout simplement utiliser firewalld avec nftables qui est natif.**
+**N.B: ce projet est a titre educatif seulement : pour un firewall linux tout simplement utiliser firewalld avec nftables qui est natif et open source.**
 
 ---
 
