@@ -19,9 +19,9 @@ Le pare-feu est conçu pour fonctionner sur une machine virtuelle (VM) ou un ser
 
 | Composant | Outil/Technologie | Rôle |
 |----------|-------------------|------|
-| 🐚 Bash  | `iptables`        | Lecture et redirection des paquets |
-| 🐍 Python | `scapy`, `netfilterqueue` | Prototypage et inspection en profondeur (DPI) |
-| 🦀 Rust   | `libnetfilter_queue`, `tokio` | Implémentation finale, plus rapide et sécurisée |
+| Bash  | `iptables`        | Lecture et redirection des paquets |
+| Python | `scapy`, `netfilterqueue` | Prototypage et inspection en profondeur (DPI) |
+| Rust   | `libnetfilter_queue`, `tokio` | Implémentation finale, plus rapide et sécurisée |
 
 ---
 
