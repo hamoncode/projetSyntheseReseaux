@@ -83,5 +83,8 @@ The firewall runs as a **background service (daemon)** on the server. It interce
 flowchart TD
     A[Incoming Packet] --> B[iptables forwards to NFQUEUE]
     B --> C[Python reads packet via NetfilterQueue]
-    C --> D[Inspection with Scapy
+    C --> D[Inspection with Scapy or raw socket]
+    D --> E{Suspicious packet?}
+    E -- Yes --> F[Drop packet and log]
+    E -- No --> G[Accept packet]
 ```
