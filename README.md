@@ -65,15 +65,15 @@ The firewall is designed to run on a virtual machine (VM) or dedicated server us
 
 | Component | Tool/Technology         | Purpose                                   |
 |-----------|-------------------------|-------------------------------------------|
-| Bash    | `iptables`              | Packet redirection and filtering          |
-| Python  | `scapy`, `netfilterqueue` | Prototyping and Deep Packet Inspection (DPI) |
+| Bash    | `iptables`              | Package redirection and filtering          |
+| Python  | `scapy`, `netfilterqueue` | Prototyping and Deep Package Inspection (DPI) |
 | Rust    | `libnetfilter_queue`, `tokio` | Final implementation with enhanced speed and memory safety |
 
 ---
 
 ## System Description
 
-The firewall runs as a **background service (daemon)** on the server. It intercepts incoming packets using `iptables`, inspects them through a processing queue (`NFQUEUE`), and decides whether to **accept** or **drop** them based on custom rules.
+The firewall runs as a **background service (daemon)** on the server. It intercepts incoming packages using `iptables`, inspects them through a processing queue (`NFQUEUE`), and decides whether to **accept** or **drop** them based on custom rules.
 
 ---
 
@@ -81,10 +81,10 @@ The firewall runs as a **background service (daemon)** on the server. It interce
 
 ```mermaid
 flowchart TD
-    A[Incoming Packet] --> B[iptables forwards to NFQUEUE]
-    B --> C[Python reads packet via NetfilterQueue]
+    A[Incoming Package] --> B[iptables forwards to NFQUEUE]
+    B --> C[Python reads package via NetfilterQueue]
     C --> D[Inspection with Scapy or raw socket]
-    D --> E{Suspicious packet?}
-    E -- Yes --> F[Drop packet and log]
-    E -- No --> G[Accept packet]
+    D --> E{Suspicious package?}
+    E -- Yes --> F[Drop package and log]
+    E -- No --> G[Accept package]
 ```
