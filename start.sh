@@ -19,10 +19,13 @@ FW_PID=$!
 
 # lancer tcpdump pour surveiller le trafic réseau
 echo "Lancement de tcpdump pour surveiller le trafic réseau..."
-tcpdump -i any -n -s 0 -w test.pcap &
+tcpdump -nn -r test.pcap
 
 # Attendre que tcpdump démarre
 sleep 2
+
+# capturer le trafic pour tester
+tshark -r test.pcap
 
 # fix du racing condition
 sleep 2
