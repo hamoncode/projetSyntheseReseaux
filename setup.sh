@@ -6,7 +6,7 @@ echo "[*] Création de l'environnement virtuel Python..."
 python3 -m venv firewall
 
 # Active l'environnement virtuel
-source venv/bin/activate
+source firewall/bin/activate
 
 # Met à jour pip
 echo "[*] Mise à jour de pip..."
