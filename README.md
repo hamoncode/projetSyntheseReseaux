@@ -1,8 +1,8 @@
 # Projet de Synthèse – Pare-feu pour VPS
 
-## Objectif
+## objectif
 
-Développer un pare-feu efficace et extensible, destiné à la protection des serveurs privés virtuels (VPS), en combinant un prototype rapide en Python avec une version finale sécurisée en Rust. 
+Développer un pare-feu qui filtre et bloque les paquets
 
 **N.B: ce projet est a titre educatif seulement : pour un firewall linux tout simplement utiliser firewalld avec nftables qui est natif et open source.**
 
@@ -50,7 +50,7 @@ flowchart TD
 
 ## Objective
 
-Develop an efficient and extensible firewall designed to protect Virtual Private Servers (VPS), starting with a quick prototype in Python and evolving into a secure and high-performance version written in Rust.
+Develop a firewall that filter and block packages
 
 This project is only for learning purpose : a good firewall solution for linux is firewalld with nftables which is native to the kernell and open source.
 ---
