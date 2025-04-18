@@ -14,7 +14,7 @@ FW_PID=$!
 # fix du racing condition
 sleep 2
 
-# Ajouter la règle iptables
+# Ajouter la règle qui redirige le trafic vers le pare-feu
 echo "Ajout de la règle iptables..."
 sudo iptables -I INPUT -j NFQUEUE --queue-num 1
 
