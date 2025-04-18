@@ -65,9 +65,9 @@ The firewall is designed to run on a virtual machine (VM) or dedicated server us
 
 | Component | Tool/Technology         | Purpose                                   |
 |-----------|-------------------------|-------------------------------------------|
-| 🐚 Bash    | `iptables`              | Packet redirection and filtering          |
-| 🐍 Python  | `scapy`, `netfilterqueue` | Prototyping and Deep Packet Inspection (DPI) |
-| 🦀 Rust    | `libnetfilter_queue`, `tokio` | Final implementation with enhanced speed and memory safety |
+| Bash    | `iptables`              | Packet redirection and filtering          |
+| Python  | `scapy`, `netfilterqueue` | Prototyping and Deep Packet Inspection (DPI) |
+| Rust    | `libnetfilter_queue`, `tokio` | Final implementation with enhanced speed and memory safety |
 
 ---
 
@@ -84,4 +84,4 @@ flowchart TD
     A[Incoming Packet] --> B[iptables forwards to NFQUEUE]
     B --> C[Python reads packet via NetfilterQueue]
     C --> D[Inspection with Scapy
-```mermaid
+```
