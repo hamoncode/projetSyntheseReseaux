@@ -18,10 +18,10 @@ sudo apt install -y \
     tcpdump
 
 echo "Création d'un environnement virtuel Python (venv)..."
-python3 -m venv venv
+python3 -m venv firewall
 
 echo "Activation de l'environnement virtuel..."
-source venv/bin/activate
+source firewall/bin/activate
 
 echo "Mise à jour de pip..."
 pip install --upgrade pip
