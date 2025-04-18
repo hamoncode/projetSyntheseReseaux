@@ -52,6 +52,7 @@ flowchart TD
 
 Develop an efficient and extensible firewall designed to protect Virtual Private Servers (VPS), starting with a quick prototype in Python and evolving into a secure and high-performance version written in Rust.
 
+This project is only for learning purpose : a good firewall solution for linux is firewalld with nftables which is native to the kernell and open source.
 ---
 
 ## Target Environment
