@@ -58,6 +58,16 @@ graph TD
 
     F --> M["iptables -> NFQUEUE"]
 ```
+
+## test 
+## script qui met a jour le systeme avant l'installation des dépendance
+![alt text](image-1.png)
+
+## on peut voir a la fin du script que firewall.py est lancé en daemon
+![alt text](image.png)
+
+## les logs des paquets vérifié sont dans 
+
 # Capstone Project – VPS Firewall
 
 ## Objective

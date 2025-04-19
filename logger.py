@@ -1,7 +1,10 @@
+import os
 import logging
 
-# set up un log file pour entrer les informations des paquets
-def setup_logger(log_file="/var/log/firewall.log"):
+def setup_logger(log_file=None):
+    if log_file is None:
+        log_file = os.path.join(os.getcwd(), "firewall.log")
+    
     logging.basicConfig(
         filename=log_file,
         level=logging.INFO,
