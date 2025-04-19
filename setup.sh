@@ -23,25 +23,25 @@ apt install -y \
     iptables \
     tcpdump
 
-echo "[*] Création d'un environnement virtuel Python (venv)..."
+echo "Création d'un environnement virtuel Python (venv)..."
 python3 -m venv firewall
 
-echo "[*] Activation de l'environnement virtuel..."
+echo "Activation de l'environnement virtuel..."
 source firewall/bin/activate
 
-echo "[*] Mise à jour de pip..."
+echo "Mise à jour de pip..."
 pip install --upgrade pip
 
-echo "[*] Installation des dépendances Python..."
+echo "Installation des dépendances Python..."
 pip install scapy netfilterqueue
 
-echo "[*] Création et activation du service systemd..."
+echo "Création et activation du service systemd..."
 
 SERVICE_PATH="/etc/systemd/system/firewall.service"
 PROJECT_PATH="$(pwd)/firewall.service"
 
 if [ ! -f "$PROJECT_PATH" ]; then
-    echo "[!] Le fichier firewall.service est introuvable dans le projet."
+    echo "Le fichier firewall.service est introuvable dans le projet."
     exit 1
 fi
 

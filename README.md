@@ -10,8 +10,6 @@ Développer un pare-feu efficace et extensible, destiné à la protection des se
 
 Le pare-feu est conçu pour fonctionner sur une machine virtuelle (VM) ou un serveur dédié tournant sous :
 - **Ubuntu Server**
-- **NixOS**  
-(selon les besoins spécifiques du déploiement)
 
 ---
 
@@ -56,8 +54,6 @@ Develop an efficient and extensible firewall designed to protect Virtual Private
 
 The firewall is designed to run on a virtual machine (VM) or dedicated server using:
 - **Ubuntu Server**
-- **NixOS**  
-(depending on the specific deployment needs)
 
 ---
 

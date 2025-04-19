@@ -1,32 +1,35 @@
 import json
-from scapy.all import IP, TCP, UDP
-from logger import setup_logger
+from scapy.all import Raw
 
-# Set up the logger
-logger = setup_logger()
+with open("config.json", "r") as f:
+    config = json.load(f)
 
-# Load configuration from config.json
-with open("config.json", "r") as config_file:
-    config = json.load(config_file)
-
-blocked_ports = config.get("blocked_ports", [])
 blocked_ips = config.get("blocked_ips", [])
-
+blocked_ports = config.get("blocked_ports", [])
+suspicious_keywords = config.get("suspicious_keywords", [])
+S
 def is_suspicious(packet):
-    ip_layer = packet.getlayer(IP)
+    ip_layer = packet.getlayer("IP")
 
-    # Check if the packet's source IP is in the blocked IPs list
-    if ip_layer.src in blocked_ips:
-        logger.info(f"Blocked packet from IP {ip_layer.src}")
+    # Check IPs
+    if ip_layer and (ip_layer.src in blocked_ips or ip_layer.dst in blocked_ips):
         return True
 
-    # Check if the packet's destination port is in the blocked ports list
-    if packet.haslayer(TCP) and packet[TCP].dport in blocked_ports:
-        logger.info(f"Blocked TCP port {packet[TCP].dport} from {ip_layer.src}")
+    # Check ports
+    if packet.haslayer("TCP") and (
+        packet["TCP"].sport in blocked_ports or packet["TCP"].dport in blocked_ports
+    ):
+        return True
+    if packet.haslayer("UDP") and (
+        packet["UDP"].sport in blocked_ports or packet["UDP"].dport in blocked_ports
+    ):
         return True
 
-    if packet.haslayer(UDP) and packet[UDP].dport in blocked_ports:
-        logger.info(f"Blocked UDP port {packet[UDP].dport} from {ip_layer.src}")
-        return True
+    # Check suspicious content
+    if packet.haslayer(Raw):
+        payload = packet[Raw].load.decode(errors="ignore").lower()
+        for keyword in suspicious_keywords:
+            if keyword.lower() in payload:
+                return True
 
     return False
