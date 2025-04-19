@@ -19,7 +19,6 @@ Le pare-feu est conçu pour fonctionner sur une machine virtuelle (VM) ou un ser
 |----------|-------------------|------|
 | Bash  | `iptables`        | Lecture et redirection des paquets |
 | Python | `scapy`, `netfilterqueue` | Prototypage et inspection en profondeur (DPI) |
-| Rust   | `libnetfilter_queue`, `tokio` | Implémentation finale, plus rapide et sécurisée |
 
 ---
 
@@ -80,7 +79,6 @@ The firewall is designed to run on a virtual machine (VM) or dedicated server us
 |-----------|-------------------------|-------------------------------------------|
 | Bash    | `iptables`              | Package redirection and filtering          |
 | Python  | `scapy`, `netfilterqueue` | Prototyping and Deep Package Inspection (DPI) |
-| Rust    | `libnetfilter_queue`, `tokio` | Final implementation with enhanced speed and memory safety |
 
 ---
 
