@@ -7,7 +7,7 @@ with open("config.json", "r") as f:
 blocked_ips = config.get("blocked_ips", [])
 blocked_ports = config.get("blocked_ports", [])
 suspicious_keywords = config.get("suspicious_keywords", [])
-S
+
 def is_suspicious(packet):
     ip_layer = packet.getlayer("IP")
 
