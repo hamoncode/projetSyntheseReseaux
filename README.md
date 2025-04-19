@@ -60,21 +60,23 @@ graph TD
 ```
 
 ## test 
-## script qui met a jour le systeme avant l'installation des dépendance
-![alt text](image-1.png)
+## lancement setup.sh avec root
+![alt text](images/image-1.png)
 
-## on peut voir a la fin du script que firewall.py est lancé en daemon
-![alt text](image.png)
+## firewall.py est lancé en daemon a la fin de setup.sh
+![alt text](images/image.png)
 
 ## les logs des paquets vérifié sont dans firewall.log
-
 ### apres un ping google (bloqué dans config.json)
-![alt text](image-4.png)
-![alt text](image-3.png)
+dans config.json l'addresse ip malicieuse indiqué est celle de google
+![alt text](images/image-4.png)
+message dans firewall.log
+![alt text](images/image-3.png)
 
-### test de commande bloqué (curl)
-![alt text](image-6.png)
-![alt text](image-5.png)
+### test de commande bloqué(curl)
+la commande est bloqué complètement il faut kill le pid
+![alt text](images/image-6.png)
+![alt text](images/image-5.png)
 
 # Capstone Project – VPS Firewall
 
@@ -137,3 +139,23 @@ graph TD
     F --> M["iptables -> NFQUEUE"]
 ```
 
+## Test
+
+## Running `setup.sh` as root
+![alt text](images/image-1.png)
+
+## `firewall.py` is launched as a daemon at the end of `setup.sh`
+![alt text](images/image.png)
+
+## The logs of inspected packets are in `firewall.log`
+
+### After pinging Google (blocked in `config.json`)
+In `config.json`, the malicious IP address specified is Google’s  
+![alt text](images/image-4.png)  
+Log entry in `firewall.log`:  
+![alt text](images/image-3.png)
+
+### Blocked command test (curl)
+The command is completely blocked—you have to kill the PID  
+![alt text](images/image-6.png)  
+![alt text](images/image-5.png)
