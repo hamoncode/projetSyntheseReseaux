@@ -72,7 +72,9 @@ graph TD
 ![alt text](image-4.png)
 ![alt text](image-3.png)
 
-### test de commande bloqué ()
+### test de commande bloqué (curl)
+![alt text](image-6.png)
+![alt text](image-5.png)
 
 # Capstone Project – VPS Firewall
 
