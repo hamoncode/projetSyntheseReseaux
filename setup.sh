@@ -23,7 +23,6 @@ apt install -y \
     tcpdump
 
 echo "Installation des bibliothèques Python globalement..."
-pip3 install --upgrade pip
 pip3 install scapy netfilterqueue --break-system-packages
 
 echo "Déploiement du service systemd..."

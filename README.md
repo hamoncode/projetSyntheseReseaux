@@ -66,7 +66,13 @@ graph TD
 ## on peut voir a la fin du script que firewall.py est lancé en daemon
 ![alt text](image.png)
 
-## les logs des paquets vérifié sont dans 
+## les logs des paquets vérifié sont dans firewall.log
+
+### apres un ping google (bloqué dans config.json)
+![alt text](image-4.png)
+![alt text](image-3.png)
+
+### test de commande bloqué ()
 
 # Capstone Project – VPS Firewall
 
