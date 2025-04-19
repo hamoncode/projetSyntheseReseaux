@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# verifier que le script est exécuté avec les droits root
+# Vérifier que le script est exécuté avec les droits root
 if [ "$EUID" -ne 0 ]; then
     echo "Veuillez exécuter ce script avec sudo."
-    exit 1;
+    exit 1
 fi
 
 set -e
 
-echo "[*] Mise à jour des paquets..."
+echo "Mise à jour des paquets..."
 apt update && apt upgrade -y
 
-echo "[*] Installation des dépendances système pour le pare-feu Python..."
+echo "Installation des dépendances système pour le pare-feu Python..."
 apt install -y \
     python3 \
     python3-pip \
@@ -23,7 +23,7 @@ apt install -y \
     iptables \
     tcpdump
 
-echo "Création d'un environnement virtuel Python (venv)..."
+echo "Création de l'environnement virtuel Python..."
 python3 -m venv firewall
 
 echo "Activation de l'environnement virtuel..."
@@ -35,7 +35,7 @@ pip install --upgrade pip
 echo "Installation des dépendances Python..."
 pip install scapy netfilterqueue
 
-echo "Création et activation du service systemd..."
+echo "Déploiement du service systemd..."
 
 SERVICE_PATH="/etc/systemd/system/firewall.service"
 PROJECT_PATH="$(pwd)/firewall.service"
@@ -45,23 +45,30 @@ if [ ! -f "$PROJECT_PATH" ]; then
     exit 1
 fi
 
-echo "→ Lien symbolique vers systemd..."
+echo "Lien symbolique vers /etc/systemd/system..."
 ln -sf "$PROJECT_PATH" "$SERVICE_PATH"
 
-echo "→ Rechargement du démon systemd..."
+echo "Rechargement de systemd..."
 systemctl daemon-reexec
 systemctl daemon-reload
 
-echo "→ Activation du service firewall..."
+echo "Activation du service firewall..."
 systemctl enable firewall
 
-echo "→ Démarrage du service firewall..."
+echo "Démarrage du service firewall..."
 systemctl start firewall
 
-echo "→ Statut du pare-feu :"
+# Vérifier que le service fonctionne avant d'ajouter la règle iptables
+if systemctl is-active --quiet firewall; then
+    echo "Application de la règle iptables (NFQUEUE)..."
+    iptables -I INPUT -j NFQUEUE --queue-num 1
+else
+    echo "Le service ne fonctionne pas, la règle iptables n'a pas été appliquée."
+    systemctl status firewall --no-pager
+    exit 1
+fi
+
+echo "Statut final du pare-feu :"
 systemctl status firewall --no-pager
 
-echo "capter le trafic réseau iptables"
-iptables -I INPUT -j NFQUEUE --queue-num 1
-
-echo "installation terminée !"
+echo "Installation terminée avec succès."
