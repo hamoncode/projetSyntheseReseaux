@@ -7,7 +7,7 @@ logger = setup_logger()
 
 def process_packet(packet):
     pkt = IP(packet.get_payload())
-
+    print("Packet intercepté")
     if is_suspicious(pkt, logger):
         packet.drop()
     else:
