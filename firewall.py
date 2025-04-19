@@ -1,11 +1,14 @@
 from netfilterqueue import NetfilterQueue
 from scapy.all import IP
+from logger import setup_logger
 from package_handler import is_suspicious
+
+logger = setup_logger()
 
 def process_packet(packet):
     pkt = IP(packet.get_payload())
 
-    if is_suspicious(pkt):
+    if is_suspicious(pkt, logger):
         packet.drop()
     else:
         packet.accept()

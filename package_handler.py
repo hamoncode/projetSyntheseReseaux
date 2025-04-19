@@ -1,8 +1,5 @@
 import json
 from scapy.all import Raw
-from logger import setup_logger
-
-logger = setup_logger()
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -11,17 +8,15 @@ blocked_ips = config.get("blocked_ips", [])
 blocked_ports = config.get("blocked_ports", [])
 suspicious_keywords = config.get("suspicious_keywords", [])
 
-def is_suspicious(packet):
+def is_suspicious(packet, logger):
     ip_layer = packet.getlayer("IP")
 
     logger.info("Paquet reçu")
 
-    # Check IPs
     if ip_layer and (ip_layer.src in blocked_ips or ip_layer.dst in blocked_ips):
         logger.info(f"IP bloquée : {ip_layer.src} -> {ip_layer.dst}")
         return True
 
-    # Check ports
     if packet.haslayer("TCP"):
         sport = packet["TCP"].sport
         dport = packet["TCP"].dport
@@ -36,7 +31,6 @@ def is_suspicious(packet):
             logger.info(f"Port UDP bloqué : sport={sport}, dport={dport}")
             return True
 
-    # Check suspicious content
     if packet.haslayer(Raw):
         payload = packet[Raw].load.decode(errors="ignore").lower()
         for keyword in suspicious_keywords:
@@ -46,4 +40,3 @@ def is_suspicious(packet):
 
     logger.info("Paquet accepté")
     return False
-
