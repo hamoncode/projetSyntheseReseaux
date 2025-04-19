@@ -11,7 +11,7 @@ suspicious_keywords = config.get("suspicious_keywords", [])
 def is_suspicious(packet, logger):
     ip_layer = packet.getlayer("IP")
 
-    logger.info("Paquet reçu")
+    logger.info("Analyse du paquet")
 
     if ip_layer and (ip_layer.src in blocked_ips or ip_layer.dst in blocked_ips):
         logger.info(f"IP bloquée : {ip_layer.src} -> {ip_layer.dst}")
@@ -35,7 +35,7 @@ def is_suspicious(packet, logger):
         payload = packet[Raw].load.decode(errors="ignore").lower()
         for keyword in suspicious_keywords:
             if keyword.lower() in payload:
-                logger.info(f"Mot-clé suspect détecté dans le payload : '{keyword}'")
+                logger.info(f"Mot-clé suspect détecté : '{keyword}'")
                 return True
 
     logger.info("Paquet accepté")
