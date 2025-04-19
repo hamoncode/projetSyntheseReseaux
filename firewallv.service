@@ -1,0 +1,14 @@
+[Unit]
+Description=Python Firewall Script
+After=network.target
+
+[Service]
+ExecStart=/home/firewalltester/projetSyntheseReseaux/firewall/bin/python3 /home/firewalltester/projetSyntheseReseaux/firewall.py
+WorkingDirectory=/home/firewalltester/projetSyntheseReseaux
+Restart=on-failure
+StandardOutput=append:/var/log/firewall.log
+StandardError=append:/var/log/firewall.err
+User=root
+
+[Install]
+WantedBy=multi-user.target
