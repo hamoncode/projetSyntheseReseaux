@@ -1,15 +1,20 @@
 #!/bin/bash
 
+# Vérifier que le script est exécuté avec sudo
+if [ "$EUID" -ne 0 ]; then
+    echo "Veuillez exécuter ce script avec sudo."
+    exit 1
+fi
+
 set -e
 
-echo "[*] Mise à jour des paquets..."
-sudo apt update && sudo apt upgrade -y
+echo "Mise à jour des paquets..."
+apt update && apt upgrade -y
 
-echo "[*] Installation des dépendances système pour le pare-feu Python..."
-sudo apt install -y \
+echo "Installation des dépendances système..."
+apt install -y \
     python3 \
     python3-pip \
-    python3-venv \
     python3-dev \
     build-essential \
     libnfnetlink-dev \
@@ -17,16 +22,37 @@ sudo apt install -y \
     iptables \
     tcpdump
 
-echo "Création d'un environnement virtuel Python (venv)..."
-python3 -m venv venv
+echo "Installation des bibliothèques Python globalement..."
+pip3 install scapy netfilterqueue --break-system-packages
 
-echo "Activation de l'environnement virtuel..."
-source venv/bin/activate
+echo "Déploiement du service systemd..."
 
-echo "Mise à jour de pip..."
-pip install --upgrade pip
+SERVICE_PATH="/etc/systemd/system/firewall.service"
+PROJECT_PATH="$(pwd)/firewall.service"
 
-echo "Installation des dépendances Python..."
-pip install scapy netfilterqueue
+if [ ! -f "$PROJECT_PATH" ]; then
+    echo "Le fichier firewall.service est introuvable dans le projet."
+    exit 1
+fi
 
-echo "installation des dépendances reussi"
+ln -sf "$PROJECT_PATH" "$SERVICE_PATH"
+
+echo "Rechargement de systemd..."
+systemctl daemon-reexec
+systemctl daemon-reload
+
+echo "Activation du service firewall..."
+systemctl enable firewall
+systemctl restart firewall
+
+# Vérifie que le service tourne avant de toucher aux paquets
+if systemctl is-active --quiet firewall; then
+    echo "Application de la règle iptables (NFQUEUE)..."
+    iptables -I INPUT -j NFQUEUE --queue-num 1
+else
+    echo "Le service ne fonctionne pas, la règle iptables n’a pas été appliquée."
+    systemctl status firewall --no-pager
+    exit 1
+fi
+
+echo "Installation et démarrage terminés !"

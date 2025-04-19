@@ -1,5 +1,9 @@
 {
+  "blocked_ips": ["8.8.8.8"],
   "blocked_ports": [12345],
-  "blocked_ips": []
+  "suspicious_keywords": [
+    "curl",
+    "wget"
+  ]
 }
 
