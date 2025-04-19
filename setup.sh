@@ -60,3 +60,8 @@ systemctl start firewall
 
 echo "→ Statut du pare-feu :"
 systemctl status firewall --no-pager
+
+echo "capter le trafic réseau iptables"
+iptables -I INPUT -j NFQUEUE --queue-num 1
+
+echo "installation terminée !"
