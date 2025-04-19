@@ -37,11 +37,28 @@ flowchart TD
     B --> C[Python lit le paquet via NetfilterQueue]
     C --> D[Inspection avec Scapy ou socket brut]
     D --> E{Paquet suspect ?}
-    E -- Oui --> F[Rejeter + enregistrer dans les logs]
+    E -- Oui --> F[Rejeter]
     E -- Non --> G[Accepter le paquet]
 
 ```
 
+## shema de fonctionnement des classes
+```mermaid
+graph TD
+    A[setup.sh] --> B[Crée l'environnement virtuel Python]
+    B --> C[Installe les dépendances]
+    C --> F[exec firewall.py -> systemd]
+    M --> H[package_handler.py]
+
+    H --> J["Lecture config.json"]
+    J --> K[Détection suspects]
+    K --> Z[drop si suspect]
+
+    M --> L[logger.py écrit les logs test]
+    L --> O[ /var/log/firewall.log ]
+
+    F --> M["iptables -> NFQUEUE"]
+```
 # Capstone Project – VPS Firewall
 
 ## Objective
@@ -84,3 +101,23 @@ flowchart TD
     E -- Yes --> F[Drop package and log]
     E -- No --> G[Accept package]
 ```
+
+## Class Workflow Diagram
+
+```mermaid
+graph TD
+    A[setup.sh] --> B[Creates Python virtual environment]
+    B --> C[Installs dependencies]
+    C --> F[Executes firewall.py via systemd]
+    M --> H[package_handler.py]
+
+    H --> J["Reads config.json"]
+    J --> K[Detects suspicious packets]
+    K --> Z[Drop if suspicious]
+
+    M --> L[logger.py writes test logs]
+    L --> O[ /var/log/firewall.log ]
+
+    F --> M["iptables -> NFQUEUE"]
+```
+
