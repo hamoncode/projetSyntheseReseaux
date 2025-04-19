@@ -1,4 +1,4 @@
-# Projet de Synthèse – Pare-feu pour VPS
+# Projet de Synthèse – Pare-feu DPI
 
 ## Objectif
 
