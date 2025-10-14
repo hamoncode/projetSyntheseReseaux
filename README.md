@@ -4,7 +4,7 @@
 
 Développer un pare-feu qui filtre et bloque les paquets
 
-**N.B: ce projet est a titre educatif seulement : pour un firewall linux tout simplement utiliser firewalld avec nftables qui est natif et open source.**
+**N.B: ce projet est a titre educatif seulement : pour un firewall linux tout simplement utiliser ufw/firewalld avec nftables qui est natif et open source.**
 
 ---
 
